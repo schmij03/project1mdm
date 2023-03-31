@@ -73,12 +73,17 @@
             <br>
             <input type="submit" class="btn btn-primary" value="Predict">
         </form>
+        {% if image %}
+        <div class="image-container">
+            <img src="{{ image }}" alt="Uploaded image">
+        </div>
+        {% endif %}
         {% if prediction %}
         <p>Prediction: {{ prediction }}</p>
         {% endif %}
         <!-- Add reset and clear buttons -->
         <div class="button-container">
-            <button type="button" class="btn btn-secondary" onclick="location.reload();">Reset</button>
+            <a href="{{ url_for('index', clear=True) }}" class="btn btn-secondary">Reset</a>
         </div>
     </div>
 </body>

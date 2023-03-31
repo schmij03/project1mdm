@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 import torch
 from PIL import Image
 from torchvision import transforms
-
+import os
 
 app = Flask(__name__)
 
@@ -37,10 +37,18 @@ def predict(image_path):
 @app.route('/', methods=['GET', 'POST'])
 def index():
     prediction = None
+    uploaded_image = None
     if request.method == 'POST':
         file = request.files['file']
-        prediction = predict(file)
-    return render_template('index.html', prediction=prediction)
+        filename = file.filename
+        file_path = os.path.join('static', filename)
+        file.save(file_path)
+        uploaded_image = file_path
+        prediction = predict(file_path)
+    if request.args.get('clear') == 'True':
+        uploaded_image = None
+        prediction = None
+    return render_template('index.html', prediction=prediction, image=uploaded_image)
 
 
 if __name__ == '__main__':
