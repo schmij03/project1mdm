@@ -49,6 +49,18 @@
             text-align: center;
             margin-top: 20px;
         }
+
+        /* Add this CSS to display buttons side by side */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .button-container button {
+            margin: 0 10px;
+        }
     </style>
 </head>
 <body>
@@ -60,11 +72,14 @@
             <input class="form-control form-control-lg" name="file" type="file">
             <br>
             <input type="submit" class="btn btn-primary" value="Predict">
-            <button type="button" class="btn btn-secondary" onclick="window.location.href=window.location.href">Reset</button>
         </form>
         {% if prediction %}
         <p>Prediction: {{ prediction }}</p>
         {% endif %}
+        <!-- Add reset and clear buttons -->
+        <div class="button-container">
+            <button type="button" class="btn btn-secondary" onclick="location.reload();">Reset</button>
+        </div>
     </div>
 </body>
 </html>
