@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 model = torch.hub.load('pytorch/vision:v0.9.0', 'vgg19', pretrained=True)
 
-
+#
 def predict(image_path):
     try:
         image = Image.open(image_path)
