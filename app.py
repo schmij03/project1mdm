@@ -1,10 +1,11 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, flash
 import torch
 from PIL import Image
 from torchvision import transforms
 import os
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'secret_key' # set a secret key for flashing messages
 
 model = torch.hub.load('pytorch/vision:v0.9.0', 'vgg19', pretrained=True)
 
@@ -32,11 +33,9 @@ def predict(image_path):
                 prediction = prediction.split(",")[1].strip().capitalize()  # Get the class name and capitalize the first letter
             return prediction
     except Exception as e:
-        error_msg = "Error: Failed to preprocess or classify the image. Please ensure the image is in a supported format and try again."
-        print(f"{error_msg}\n{e}")
-        return error_msg
-
-
+        error_msg = "Failed to preprocess or classify the image. Please ensure the image is in a supported format and try again."
+        flash(error_msg, 'error') # flash the error message with 'error' category
+        return None # return None instead of the error message
 
 
 @app.route('/', methods=['GET', 'POST'])

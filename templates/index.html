@@ -66,6 +66,11 @@
 <body>
     <div id="container">
         <h1>VGG19 Image Classifier "Project1 MDM"</h1>
+        {% if error %}
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+        {% endif %}
         <form action="/" method="post" enctype="multipart/form-data">
             <label for="formFileLg" class="form-label">Input your file below:</label>
             <br>
